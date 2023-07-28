@@ -46,7 +46,7 @@ public class MemeRepositoryImpl implements MemeRepository{
                 .limit(100);
 
         List<Meme> posts = mongoTemplate.find(query, Meme.class);
-        Collections.reverse(posts);
+        // Collections.reverse(posts);
         return posts;
     }
 
