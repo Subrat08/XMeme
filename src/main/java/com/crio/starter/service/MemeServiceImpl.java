@@ -44,7 +44,7 @@ public class MemeServiceImpl implements MemeService{
 
         List<Meme> postEntities = repositoryService.getMemes();
         for (Meme meme : postEntities) {
-            System.out.println(meme.getDateOfPosting()+" "+meme.getId());
+            System.out.println(meme.getDateOfPosting()+" "+meme.getId()+" "+meme.getName());
         }
         System.out.println("-====================================");
         List<ResponseDto> posts = new ArrayList<>();

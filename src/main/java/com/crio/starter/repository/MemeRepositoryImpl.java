@@ -47,7 +47,7 @@ public class MemeRepositoryImpl implements MemeRepository{
                 .limit(100);
 
         List<Meme> posts = mongoTemplate.find(query, Meme.class);
-        Comparator<Meme> compareById = (Meme o1, Meme o2) ->Long.compare(o1.getId(), o2.getId() );
+        Comparator<Meme> compareById = (Meme o1, Meme o2) ->Long.compare(o2.getId(), o1.getId() );
         Collections.sort(posts, compareById);
         return posts;
     }
