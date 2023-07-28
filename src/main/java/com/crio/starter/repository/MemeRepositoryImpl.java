@@ -45,7 +45,9 @@ public class MemeRepositoryImpl implements MemeRepository{
                 .with(Sort.by(Sort.Direction.DESC, "dateOfPosting")) // Replace "timestampField" with the field you want to use for sorting
                 .limit(100);
 
-        return mongoTemplate.find(query, Meme.class);
+        List<Meme> posts = mongoTemplate.find(query, Meme.class);
+        Collections.reverse(posts);
+        return posts;
     }
 
 
