@@ -6,7 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import com.crio.starter.exchange.ResponseDto;
@@ -43,7 +43,9 @@ public class MemeServiceImpl implements MemeService{
     public List<ResponseDto> getMemes(){
 
         List<Meme> postEntities = repositoryService.getMemes();
-
+        for (Meme meme : postEntities) {
+            System.out.println(meme.getDateOfPosting()+" "+meme.getId());
+        }
         List<ResponseDto> posts = new ArrayList<>();
 
         for (Meme post:postEntities) {
@@ -81,7 +83,7 @@ public class MemeServiceImpl implements MemeService{
                                 .name(post.getName())
                                 .url(post.getUrl())
                                 .caption(post.getCaption())
-                                .dateOfPosting(LocalDate.now())
+                                .dateOfPosting(LocalDateTime.now())
                                 .build();
         long postId = repositoryService.saveMeme(entity);
         return postId;

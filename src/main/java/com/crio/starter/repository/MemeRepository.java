@@ -5,12 +5,10 @@ import java.util.Map;
 
 import com.crio.starter.data.Meme;
 import com.crio.starter.exception.PostNotFoundException;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface MemeRepository {
     Meme findByNameAndCaptionAndUrl(String name, String caption, String url);
-    
+
     List<Meme> getMemes();
 
     Meme getMeme(long postId) throws PostNotFoundException;

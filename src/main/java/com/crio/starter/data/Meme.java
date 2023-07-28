@@ -1,6 +1,6 @@
 package com.crio.starter.data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -34,5 +34,5 @@ public class Meme {
 
     private String caption;
 
-    private LocalDate dateOfPosting;
+    private LocalDateTime dateOfPosting; 
 }
