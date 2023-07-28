@@ -1,6 +1,7 @@
 package com.crio.starter.repository;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,11 +43,12 @@ public class MemeRepositoryImpl implements MemeRepository{
 
         // return posts;
         Query query = new Query()
-                .with(Sort.by(Sort.Direction.DESC, "dateOfPosting")) // Replace "timestampField" with the field you want to use for sorting
+                .with(Sort.by(Sort.Order.desc("dateOfPosting")))
                 .limit(100);
 
         List<Meme> posts = mongoTemplate.find(query, Meme.class);
-        Collections.reverse(posts);
+        Comparator<Meme> compareById = (Meme o1, Meme o2) ->Long.compare(o1.getId(), o2.getId() );
+        Collections.sort(posts, compareById);
         return posts;
     }
 
