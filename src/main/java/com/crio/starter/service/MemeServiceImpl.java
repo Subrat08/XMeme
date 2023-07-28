@@ -13,6 +13,7 @@ import com.crio.starter.exchange.ResponseDto;
 import com.crio.starter.data.Meme;
 import com.crio.starter.exception.InvalidPostException;
 import com.crio.starter.exception.PostNotFoundException;
+import com.crio.starter.exception.DuplicatePostException;
 import com.crio.starter.repository.MemeRepository;
 import com.crio.starter.repository.MemeSequenceGenerator;
 
@@ -69,8 +70,9 @@ public class MemeServiceImpl implements MemeService{
      * @param ResponseDto post
      * @return long postId - The id of the saved Meme
      * @throws InvalidPostException if the validation of the ResponseDto fails
+     * @throws DuplicatePostException
      */
-    public long saveMeme(ResponseDto post) throws InvalidPostException {
+    public long saveMeme(ResponseDto post) throws InvalidPostException, DuplicatePostException {
 
         validatePost(post);
 
@@ -114,8 +116,9 @@ public class MemeServiceImpl implements MemeService{
      * Function to validate the fields of a ResponseDto
      * @param post
      * @throws InvalidPostException
+     * @throws DuplicatePostException
      */
-    private void validatePost(ResponseDto post) throws InvalidPostException{
+    private void validatePost(ResponseDto post) throws InvalidPostException, DuplicatePostException{
 
         String name = post.getName();
         String url = post.getUrl();
@@ -135,6 +138,11 @@ public class MemeServiceImpl implements MemeService{
 
         if (isImageUrl(url) == false) {
             throw new InvalidPostException("The url is not a valid image url.");
+        }
+
+        Meme meme = repositoryService.findByNameAndCaptionAndUrl(post.getName(), post.getCaption(), post.getUrl());
+        if(meme!=null){
+            throw new DuplicatePostException("Duplicate Post");
         }
     }
 

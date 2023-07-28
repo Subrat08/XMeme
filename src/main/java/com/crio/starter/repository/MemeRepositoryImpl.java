@@ -91,4 +91,16 @@ public class MemeRepositoryImpl implements MemeRepository{
 
         mongoTemplate.save(post);
     }
+
+
+    @Override
+    public Meme findByNameAndCaptionAndUrl(String name, String caption, String url) {
+        Query query = new Query(
+            Criteria.where("name").is(name)
+                    .and("caption").is(caption)
+                    .and("url").is(url)
+        );
+
+        return mongoTemplate.findOne(query, Meme.class);
+    }
 }

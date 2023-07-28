@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.crio.starter.exchange.ResponseDto;
+import com.crio.starter.exception.DuplicatePostException;
 import com.crio.starter.exception.InvalidPostException;
 import com.crio.starter.exception.PostNotFoundException;
 import com.crio.starter.exchange.SaveMemeResponse;
@@ -40,7 +41,7 @@ public class MemeController {
     }
 
     @PostMapping(URI)
-    public SaveMemeResponse saveMeme(@RequestBody ResponseDto post) throws InvalidPostException{
+    public SaveMemeResponse saveMeme(@RequestBody ResponseDto post) throws InvalidPostException, DuplicatePostException{
         long postId = memeService.saveMeme(post);
         SaveMemeResponse response = new SaveMemeResponse(String.valueOf(postId));
         return response;
