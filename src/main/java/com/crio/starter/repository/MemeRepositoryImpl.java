@@ -33,14 +33,19 @@ public class MemeRepositoryImpl implements MemeRepository{
     @Override
     public List<Meme> getMemes() {
 
-        // Query to get the bottom 100 documents from the mongodb collection.
-        Query query = new Query().with(Sort.by(Direction.DESC, "id")).limit(100);
+        // // Query to get the bottom 100 documents from the mongodb collection.
+        // Query query = new Query().with(Sort.by(Direction.DESC, "id")).limit(100);
         
-        List<Meme> posts = mongoTemplate.find(query, Meme.class, "userPosts");
+        // List<Meme> posts = mongoTemplate.find(query, Meme.class, "userPosts");
         
-        Collections.reverse(posts);
+        // Collections.reverse(posts);
 
-        return posts;
+        // return posts;
+        Query query = new Query()
+                .with(Sort.by(Sort.Direction.DESC, "dateOfPosting")) // Replace "timestampField" with the field you want to use for sorting
+                .limit(100);
+
+        return mongoTemplate.find(query, Meme.class);
     }
 
 
